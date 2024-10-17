@@ -55,12 +55,14 @@ textarea {
 
 .username-section {
     font-weight: bold;
+    display:  flex;
 
     .username-label {
         font-size: 20px;
         margin-right: 10px;
     }
     .username-input {
+        flex-grow: 1;
         border: 1px gray;
         border-radius: 5px;
         box-shadow: 0 0 5px #00000047;
@@ -68,6 +70,15 @@ textarea {
         padding-right: 10px;
         padding-top: 6px;
         padding-bottom: 6px;
+        margin-right: 10px;
+    }
+
+    .clear-chat-btn {
+        background: $background-orange;
+        color: white;
+        font-weight: bold;
+
+        padding: 0 10px 0 10px;
     }
 }
 
@@ -100,7 +111,7 @@ textarea {
         padding-top: 10px;
         padding-bottom: 10px;
         font-size: 14px;
-
+        
         &::placeholder {
             font-size: 16px;
         }
