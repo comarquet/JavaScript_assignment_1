@@ -70,7 +70,7 @@ app.get('/censorMessage', query('message').exists(), (req, res) => {
     const validationRes = validationResult(req);
     if (validationRes.isEmpty()) {
         let originalMessage = matchedData(req).message;
-        let censoredMessage = originalMessage.replaceAll(/lyon|paris|england|english/gi, '***');
+        let censoredMessage = originalMessage.replaceAll(/lyon|paris|england|english|psg/gi, '***');
         res.json({originalMessage, censoredMessage});
     } else {
         res.status(400).json({errors: validationRes.array()})
