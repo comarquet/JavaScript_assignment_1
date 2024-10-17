@@ -7,7 +7,7 @@ const { query, body, matchedData, validationResult } = require('express-validato
  * Prepare command line arguments
  */
 program
-    .option('-p, --port <PORT>', 'Select port on which the server will be run', 8000);
+    .option('-p, --port <PORT>', 'Select port on which the server will be run', 3014);
 program.parse();
 let port = program.opts().port;
 
