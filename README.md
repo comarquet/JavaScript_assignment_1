@@ -149,6 +149,12 @@ after it has been cleared (same format than `GET /chat`)
        of an element to change, you use JS to set or remove classes to that element, 
        and you edit the `style.scss` stylesheet in order to have styling rules that
        matches the classes.
+    4. Like with any software development, organize your code coherently and make it readable.
+       Use comments, seperate things into coherent functions. You don't neet to seperate
+       your code into several files for this assignment, although it is possible if you
+       want, by using ES6 modules.
+    5. Do **not** seperate your code in different files without ES6 modules
+    (we try to avoid ES5 practices as they are deprecated)
     
 
 3. Implement the following functionalities
