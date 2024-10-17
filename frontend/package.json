@@ -5,7 +5,7 @@
     "sass": "^1.80.1"
   },
   "scripts": {
-    "sass:watch": "CHOKIDAR_USEPOLLING=true sass --watch integration/style.scss integration/assets/stylesheets/output.css",
+    "sass:watch": "CHOKIDAR_USEPOLLING=true sass --watch chatroom/style.scss chatroom/assets/stylesheets/output.css",
     "start": "npm run sass:watch & node frontendServer.js"
   }
 }
