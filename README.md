@@ -110,11 +110,14 @@ in JSON format (same format than a request to `GET /chat`)
 #### `GET /censorMessage?message=Message content`
 
 This this a censoring service provided by the server. You can send it a message,
-and it will check it and return a censored version if it detects obsecene words
+and it will check it and return a censored version if it detects obscene words
 such as "Lyon", "PSG", "English" or "England". This is a Stéphanois and French 
 chatroom after all.
 
-The message you want to censor must be sent in the query parameter `message`.
+The message you want to censor must be sent with the query parameter `message`.
+
+> **Note:** In javascript, you will not manually build the URL with the query
+> parameter after the `?` sign. There are available functions in JS to make that for you.
 
 The server will respond with the following JSON object :
 
@@ -138,7 +141,17 @@ after it has been cleared (same format than `GET /chat`)
 
 > **Note:** beware of the browser cache. It's a good idea to always use the "Hard Refresh" functionality of your browser.
 
-2. Implement the following functionalities
+2. Mandatory features to use, or things to avoid :
+
+    1. Use the `fetch()` function to make your AJAX calls
+    2. Use at least once in your code the `await`/`async` syntax
+    3. Never set a style directly from javascript. If you need the visual appearance
+       of an element to change, you use JS to set or remove classes to that element, 
+       and you edit the `style.scss` stylesheet in order to have styling rules that
+       matches the classes.
+    
+
+3. Implement the following functionalities
 
     1. Send messages when clicking on the "Send" button **or** when the user presses
     the <Enter> key while being focused in the message input.
@@ -180,5 +193,6 @@ after it has been cleared (same format than `GET /chat`)
         between them.
 
     7. Make the "Clear chat" button work
-When clicking the button, use the server API endpoint `DELETE /chat`
+    When clicking the button, use the server API endpoint `DELETE /chat`
 
+    8. For a better UX flow, empty the message input field after a message has been sent.
