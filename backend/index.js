@@ -1,5 +1,6 @@
 const express = require('express');
 const { program } = require('commander');
+const cors = require('cors');
 const { query, body, matchedData, validationResult } = require('express-validator');
 
 
@@ -13,6 +14,9 @@ let port = program.opts().port;
 
 /** Setup Express server */
 const app = express();
+app.use(cors());
+
+
 app.use(express.json());
 
 function resetChat() {
@@ -86,6 +90,11 @@ app.delete('/chat', (req, res) => {
     res.json(chat);
 })
 
-app.listen(port, () => {
+let server = app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 })
+
+
+
+
+module.exports = {app, server};
