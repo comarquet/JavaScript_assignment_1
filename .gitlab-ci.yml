@@ -27,4 +27,5 @@ deployBackend:
     - npm exec railway up # Deploy using Railway CLI
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
-      changes: backend/**/*
+      changes: 
+        - backend/**/*
