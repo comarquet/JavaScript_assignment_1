@@ -12,6 +12,7 @@ variables:
 testBackend:
   stage: test
   script:
+    - cd backend
     - npm install
     - npm test
   rules:
