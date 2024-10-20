@@ -15,7 +15,7 @@ deployBackend:
   script:
     - cd backend/
     - npm install
-    - npm exec railway --version
+    - ./node_modules/.bin/railway up --service chat_node_backend --detach
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       changes: 

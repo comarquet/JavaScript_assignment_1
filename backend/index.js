@@ -16,7 +16,6 @@ let port = program.opts().port;
 const app = express();
 app.use(cors());
 
-
 app.use(express.json());
 
 function resetChat() {
