@@ -18,6 +18,10 @@ app.use(cors());
 
 app.use(express.json());
 
+app.get('/version', (req, res) => {
+    res.json({version: "0.2"});
+});
+
 function resetChat() {
     return [{author: "admin", message: "Welcome to the chat!"}]; 
 }
@@ -30,6 +34,7 @@ function resetChat() {
  * }
  */
 let chat = resetChat();
+
 
 app.get('/chat', (req, res) => {
     res.json(chat);
