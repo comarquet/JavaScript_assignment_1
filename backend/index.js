@@ -8,7 +8,7 @@ const { query, body, matchedData, validationResult } = require('express-validato
  * Prepare command line arguments
  */
 program
-    .option('-p, --port <PORT>', 'Select port on which the server will be run', 3014);
+  .option('-p, --port <PORT>', 'Select port on which the server will be run', 3014);
 program.parse();
 let port = program.opts().port;
 
@@ -19,12 +19,10 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/version', (req, res) => {
-    res.json({version: "0.2"});
+  res.json({version: '0.2'});
 });
 
-function resetChat() {
-    return [{author: "admin", message: "Welcome to the chat!"}]; 
-}
+
 
 /**
  * Message format : 
@@ -33,11 +31,18 @@ function resetChat() {
  *      message: "content"
  * }
  */
-let chat = resetChat();
+
+
+app.locals.resetChat = () => {
+  app.locals.chat = [{author: 'admin', message: 'Welcome to the chat!'}];
+};
+app.locals.resetChat();
+
+
 
 
 app.get('/chat', (req, res) => {
-    res.json(chat);
+  res.json(app.locals.chat);
 })
 
 /**
@@ -48,18 +53,18 @@ app.get('/chat', (req, res) => {
  * }
  */
 app.post(
-    '/message', 
-    body('author').exists().trim().isString().notEmpty(),
-    body('message').exists().trim().isString().notEmpty(),
-    (req, res) => {
-        const validationRes = validationResult(req);
-        if (validationRes.isEmpty()) {
-            chat.push(matchedData(req));
-            res.json(chat);
-        } else {
-            res.status(400).json({errors: validationRes.array()})
-        }
+  '/message', 
+  body('author').exists().trim().isString().notEmpty(),
+  body('message').exists().trim().isString().notEmpty(),
+  (req, res) => {
+    const validationRes = validationResult(req);
+    if (validationRes.isEmpty()) {
+      app.locals.chat.push(matchedData(req));
+      res.json(app.locals.chat);
+    } else {
+      res.status(400).json({errors: validationRes.array()})
     }
+  }
 )
 
 /**
@@ -75,14 +80,15 @@ app.post(
  * }
  */
 app.get('/censorMessage', query('message').exists(), (req, res) => {
-    const validationRes = validationResult(req);
-    if (validationRes.isEmpty()) {
-        let originalMessage = matchedData(req).message;
-        let censoredMessage = originalMessage.replaceAll(/lyon|paris|england|english|psg/gi, '***');
-        res.json({originalMessage, censoredMessage});
-    } else {
-        res.status(400).json({errors: validationRes.array()})
-    }
+  const validationRes = validationResult(req);
+  if (validationRes.isEmpty()) {
+    let originalMessage = matchedData(req).message;
+    let censoredMessage = originalMessage
+      .replaceAll(/lyon|paris|england|english|psg/gi, '***');
+    res.json({originalMessage, censoredMessage});
+  } else {
+    res.status(400).json({errors: validationRes.array()})
+  }
 });
 
 
@@ -90,15 +96,17 @@ app.get('/censorMessage', query('message').exists(), (req, res) => {
  * Clears the chat. Returns the new cleared chat
  */
 app.delete('/chat', (req, res) => {
-    chat = resetChat();
-    res.json(chat);
+  app.locals.resetChat();
+  res.json(app.locals.chat);
 })
+
+if (process.env.NODE_ENV === 'test') {
+  port = 0;
+}
 
 let server = app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening on port ${port}`);
 })
-
-
 
 
 module.exports = {app, server};
