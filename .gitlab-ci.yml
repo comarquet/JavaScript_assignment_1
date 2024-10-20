@@ -1,6 +1,7 @@
 image: node:18
 
 stages:
+  - test
   - build
   - deploy
 
@@ -8,7 +9,15 @@ variables:
   NODE_ENV: development
   RAILWAY_TOKEN: $RAILWAY_TOKEN  # Set this in GitLab CI/CD variables
 
-
+testBackend:
+  stage: test
+  script:
+    - npm install
+    - npm test
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes: 
+        - backend/**/*
 
 deployBackend:
   stage: deploy

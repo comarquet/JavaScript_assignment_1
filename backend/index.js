@@ -40,6 +40,7 @@ app.get('/chat', (req, res) => {
     res.json(chat);
 })
 
+
 /**
  * Expected JSON body : 
  * {
