@@ -15,4 +15,5 @@ COPY . .
 # Expose port 3014 to allow external connections
 EXPOSE 3014
 
+
 CMD ["npm", "start"]
