@@ -47,13 +47,19 @@ function updateChatWindow(messages) {
 // Function to display error popup
 function showErrorPopup() {
     const errorPopup = document.querySelector('.error-message-popup');
-    errorPopup.classList.add('active');
+    if (errorPopup) {
+        errorPopup.classList.add('active');
+        errorPopup.style.display = 'block'; // Ensure that the popup is displayed
+    }
 }
 
 // Function to hide error popup
 function hideErrorPopup() {
     const errorPopup = document.querySelector('.error-message-popup');
-    errorPopup.classList.remove('active');
+    if (errorPopup) {
+        errorPopup.classList.remove('active');
+        errorPopup.style.display = 'none'; // Hide the popup
+    }
 }
 
 // Function to handle the "Send" button click or Enter key press
@@ -64,23 +70,18 @@ async function handleSendButton() {
     const author = authorInput.value.trim();
     const messageContent = messageInput.value.trim();
 
-    // Prevent sending empty messages or empty alias
     if (!author || !messageContent) {
         return;
     }
 
-    // Step 1: Fetch the censored message
     const censoredMessage = await fetchCensoredMessage(messageContent);
     if (!censoredMessage) return; // Exit if censoring fails
 
-    // Step 2: Send the censored message to the chat server
     const updatedMessages = await sendMessage(author, censoredMessage);
     if (!updatedMessages) return; // Exit if sending fails
 
-    // Step 3: Update the chat window with the new content
     updateChatWindow(updatedMessages);
 
-    // Clear the message input after sending
     messageInput.value = '';
     updateSendButtonState(); // Update the send button state to be disabled if input is empty
 }
@@ -119,9 +120,15 @@ function updateSendButtonState() {
     const messageInput = document.querySelector('.new-message-input');
     const sendButton = document.querySelector('.send-message-btn');
 
-    // Disable the send button if either the author or message input is empty
     if (sendButton) {
-        sendButton.disabled = !(authorInput.value.trim() && messageInput.value.trim());
+        const shouldDisable = !(authorInput.value.trim() && messageInput.value.trim());
+        sendButton.disabled = shouldDisable;
+
+        if (shouldDisable) {
+            sendButton.classList.add('disabled');
+        } else {
+            sendButton.classList.remove('disabled');
+        }
     }
 }
 
@@ -133,46 +140,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorPopupCloseButton = document.querySelector('.error-message-popup .close-btn');
     const authorInput = document.querySelector('.username-input');
 
-    // Trigger message sending on button click
+    // Set default value for alias
+    authorInput.value = "anonymous";
+
     if (sendButton) {
         sendButton.addEventListener('click', handleSendButton);
     }
 
-    // Trigger message sending on Enter key press while focused in the message input
     if (messageInput) {
         messageInput.addEventListener('keypress', (event) => {
             if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault(); // Prevent newline in textarea
-                
-                // Only send if both author and message fields are filled
+                event.preventDefault();
                 if (authorInput.value.trim() && messageInput.value.trim()) {
                     handleSendButton();
                 }
             }
         });
-
-        // Enable or disable the send button based on input values
         messageInput.addEventListener('input', updateSendButtonState);
     }
 
-    // Enable or disable the send button based on input values for alias
     if (authorInput) {
         authorInput.addEventListener('input', updateSendButtonState);
     }
 
-    // Add click event listener to the "Clear Chat" button
     if (clearChatButton) {
         clearChatButton.addEventListener('click', clearChat);
     }
 
-    // Add click event listener to the "Close" button of the error popup
     if (errorPopupCloseButton) {
         errorPopupCloseButton.addEventListener('click', hideErrorPopup);
     }
 
-    // Start polling for real-time updates
     startPolling();
-
-    // Initial call to update the Send button state if inputs are empty
     updateSendButtonState();
 });

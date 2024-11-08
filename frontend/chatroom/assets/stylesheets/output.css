@@ -104,17 +104,23 @@ textarea {
   font-size: 16px;
 }
 .new-message-section .send-message-btn {
-  background: #EF6A36;
+  background: #EF6A36; /* Active button color */
   color: white;
   font-size: 18px;
   font-weight: bold;
   width: 100%;
   padding: 10px 0 10px 0;
+  cursor: pointer;
+}
+.new-message-section .send-message-btn.disabled {
+  background: #F7B799; /* Lighter shade when disabled */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
 }
 
 .error-message-popup {
   position: fixed;
   visibility: hidden;
+  display: none; /* Default state is hidden */
   background-color: #DB1243;
   color: white;
   font-weight: bold;
@@ -122,9 +128,11 @@ textarea {
   right: 40px;
   padding: 20px;
   border-radius: 5px;
+  z-index: 1000; /* Make sure it's on top of other elements */
 }
 .error-message-popup.active {
   visibility: visible;
+  display: block; /* When active, display the popup */
 }
 .error-message-popup .close-btn {
   background-color: #F8D7DA;
