@@ -16,30 +16,38 @@ a {
     */
     text-decoration: inherit;
     color: inherit;
-    
+
 }
 
-input, textarea {
+input,
+textarea {
     outline: none;
 }
 
 button {
-    font-family: inherit; /* For all browsers */
-    font-size: 100%; /* For all browsers */
-    line-height: 1.15; /* For all browsers */
-    margin: 0; /* Firefox and Safari have margin */
-    overflow: visible; /* Edge hides overflow */
-    text-transform: none; /* Firefox inherits text-transform */
-    -webkit-appearance: button; /* Safari otherwise prevents some styles */
-   
+    font-family: inherit;
+    /* For all browsers */
+    font-size: 100%;
+    /* For all browsers */
+    line-height: 1.15;
+    /* For all browsers */
+    margin: 0;
+    /* Firefox and Safari have margin */
+    overflow: visible;
+    /* Edge hides overflow */
+    text-transform: none;
+    /* Firefox inherits text-transform */
+    -webkit-appearance: button;
+    /* Safari otherwise prevents some styles */
+
     border: 0;
     border-radius: 0.25rem;
-    cursor: pointer;  
+    cursor: pointer;
 }
 
 textarea::placeholder {
     color: #d7d7d7;
-  }
+}
 
 textarea {
     box-sizing: border-box;
@@ -55,12 +63,13 @@ textarea {
 
 .username-section {
     font-weight: bold;
-    display:  flex;
+    display: flex;
 
     .username-label {
         font-size: 20px;
         margin-right: 10px;
     }
+
     .username-input {
         flex-grow: 1;
         border: 1px gray;
@@ -90,7 +99,7 @@ textarea {
     height: 300px;
     overflow-y: scroll;
 
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
 
     .author {
         font-weight: bold;
@@ -99,7 +108,8 @@ textarea {
 }
 
 .new-message-section {
-    margin-top: 20px;;
+    margin-top: 20px;
+    ;
 
     .new-message-input {
         width: 100%;
@@ -111,14 +121,15 @@ textarea {
         padding-top: 10px;
         padding-bottom: 10px;
         font-size: 14px;
-        
+
         &::placeholder {
             font-size: 16px;
         }
     }
 
     .send-message-btn {
-        background: #EF6A36; /* Active button color */
+        background: #EF6A36;
+        /* Active button color */
         color: white;
         font-size: 18px;
         font-weight: bold;
@@ -126,10 +137,12 @@ textarea {
         padding: 10px 0 10px 0;
         cursor: pointer;
     }
-    
+
     .send-message-btn.disabled {
-        background: #F7B799; /* Lighter shade when disabled */
-        cursor: not-allowed; /* Change cursor to indicate disabled state */
+        background: #F7B799;
+        /* Lighter shade when disabled */
+        cursor: not-allowed;
+        /* Change cursor to indicate disabled state */
     }
 }
 
@@ -137,7 +150,8 @@ textarea {
 .error-message-popup {
     position: fixed;
     visibility: hidden;
-    display: none; /* Default state is hidden */
+    display: none;
+    /* Default state is hidden */
     background-color: #DB1243;
     color: white;
     font-weight: bold;
@@ -145,11 +159,13 @@ textarea {
     right: 40px;
     padding: 20px;
     border-radius: 5px;
-    z-index: 1000; /* Make sure it's on top of other elements */
+    z-index: 1000;
+    /* Make sure it's on top of other elements */
 
     &.active {
         visibility: visible;
-        display: block; /* When active, display the popup */
+        display: block;
+        /* When active, display the popup */
     }
 
     .close-btn {
